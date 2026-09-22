@@ -1,5 +1,4 @@
 # Tomato-Drought-Impact-Assessment
-# Tomato Drought Impact Assessment
 
 This repository contains the implementation of Drought-Spec-Net for early tomato drought-stress detection using visible–near-infrared (Vis–NIR) spectral data. It also includes literature-informed potential yield-impact mapping and RGB mask-based visible canopy stress estimation.
 
