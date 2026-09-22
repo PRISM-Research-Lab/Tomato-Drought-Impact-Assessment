@@ -83,12 +83,6 @@ git clone https://github.com/PRISM-Research-Lab/Tomato-Drought-Impact-Assessment
 cd Tomato-Drought-Impact-Assessment
 ```
 
-Install the required Python packages:
-
-```bash
-pip install -r requirements.txt
-```
-
 ## Running Drought-Spec-Net
 
 Run the spectral drought-detection and potential yield-impact analysis:
