@@ -23,6 +23,7 @@ The script performs:
 
 The [`RGB_Mask_images`](https://github.com/PRISM-Research-Lab/Tomato-Drought-Impact-Assessment/tree/main/RGB_Mask_images) folder contains 44 three-class masks generated from individual greenhouse tomato plant images using ilastik.
 
+
 The grayscale mask values represent:
 
 * `0`: Background
@@ -30,6 +31,9 @@ The grayscale mask values represent:
 * `255`: Visibly stressed canopy tissue
 
 Each mask represents a different individual tomato plant from the WVSU greenhouse dataset.
+A step-by-step tutorial describing the mask-creation and batch-export process is available in the following repository:
+
+**[ilastik Mask Creation Tutorial](https://github.com/PRISM-Research-Lab/ilastik-mask-creation-tutorial)**
 
 ### DSI Estimation
 
