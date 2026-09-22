@@ -1,70 +1,119 @@
 # Tomato-Drought-Impact-Assessment
-# Drought-Spec-Net
+# Tomato Drought Impact Assessment
 
-Drought-Spec-Net is a hybrid one-dimensional convolutional neural network for early tomato drought-stress detection using visible–near-infrared (Vis–NIR) spectral data. This repository contains code for spectral-data analysis, drought classification, literature-informed potential yield-impact mapping, and RGB-based visible canopy stress estimation. The LLM-based reporting component is not included in this repository.
+This repository contains the implementation of Drought-Spec-Net for early tomato drought-stress detection using visible–near-infrared (Vis–NIR) spectral data. It also includes literature-informed potential yield-impact mapping and RGB mask-based visible canopy stress estimation.
 
-## Spectral Dataset
+The LLM-based agronomic reporting component is not included in this repository.
 
-The public Vis–NIR spectral dataset used in this study is not redistributed in this repository. It can be downloaded from:
+## Repository Contents
 
-**Dataset link:** [Insert the original dataset URL here]
+### Drought-Spec-Net
 
-After downloading the dataset, place the CSV file in:
+[`ProposedDroughtSpecNetV1.py`](https://github.com/PRISM-Research-Lab/Tomato-Drought-Impact-Assessment/blob/main/ProposedDroughtSpecNetV1.py) contains the implementation of the proposed Drought-Spec-Net model.
 
-`data/spectral/`
+The script performs:
 
-The dataset should contain 211 spectral features covering wavelengths from 348 to 1052 nm and a label column named `y`, where:
+* Vis–NIR spectral-data preprocessing
+* Training and evaluation of Drought-Spec-Net
+* Comparison with baseline classification models
+* Calculation of classification-performance metrics
+* Literature-informed potential yield-impact mapping
+* Generation of figures and summary results
 
-* `0` represents normal plants.
-* `1` represents drought-stressed plants.
+### RGB Mask Images
 
-Please cite the original dataset publications when using these data.
+The [`RGB_Mask_images`](https://github.com/PRISM-Research-Lab/Tomato-Drought-Impact-Assessment/tree/main/RGB_Mask_images) folder contains 44 three-class masks generated from individual greenhouse tomato plant images using ilastik.
 
-## WVSU RGB Dataset
-
-This repository includes 44 RGB images of individual greenhouse tomato plants and their corresponding three-class ilastik masks. The mask values represent:
+The grayscale mask values represent:
 
 * `0`: Background
 * `128`: Healthy-green canopy tissue
 * `255`: Visibly stressed canopy tissue
 
-The RGB images and masks are used to calculate the healthy fraction and RGB-derived visible canopy stress index.
+Each mask represents a different individual tomato plant from the WVSU greenhouse dataset.
+
+### DSI Estimation
+
+[`DSI_Estimation_from-RGM-Mask.py`](https://github.com/PRISM-Research-Lab/Tomato-Drought-Impact-Assessment/blob/main/DSI_Estimation_from-RGM-Mask.py) calculates plant-level canopy composition and the RGB-derived visible canopy stress index from the three-class masks.
+
+For each plant image, the script calculates:
+
+* Healthy pixel count
+* Visibly stressed pixel count
+* Total canopy pixel count
+* Healthy fraction
+* Visible canopy stress index
+* Healthy and visibly stressed canopy percentages
+* Summary statistics and graphical results
+
+The visible canopy stress index is calculated as:
+
+```text
+Visible Canopy Stress Index =
+Visibly Stressed Pixels / Total Canopy Pixels
+```
+
+The index ranges from 0 to 1, where values closer to 0 indicate predominantly healthy-green canopy tissue and values closer to 1 indicate a greater proportion of visibly stressed canopy tissue.
+
+## Spectral Dataset
+
+The public Vis–NIR spectral dataset used to train and evaluate Drought-Spec-Net is not redistributed in this repository. It can be downloaded from:
+
+**Dataset link:** [Insert the original dataset URL here]
+
+After downloading the dataset, update the dataset path in `ProposedDroughtSpecNetV1.py`.
+
+The spectral dataset contains:
+
+* 378 spectral samples
+* 246 normal samples
+* 132 drought-stressed samples
+* 211 spectral bands
+* Wavelength range of 348–1052 nm
+* Label `0` for normal samples
+* Label `1` for drought-stressed samples
+
+Users should cite the original dataset publications when using these data.
 
 ## Installation
 
 Clone the repository:
 
-`git clone https://github.com/[username]/Drought-Spec-Net.git`
-
-Move into the repository:
-
-`cd Drought-Spec-Net`
+```bash
+git clone https://github.com/PRISM-Research-Lab/Tomato-Drought-Impact-Assessment.git
+cd Tomato-Drought-Impact-Assessment
+```
 
 Install the required Python packages:
 
-`pip install -r requirements.txt`
+```bash
+pip install -r requirements.txt
+```
 
-## Running the Code
+## Running Drought-Spec-Net
 
-Run the spectral-data analysis:
+Run the spectral drought-detection and potential yield-impact analysis:
 
-`python spectral_model/spectral_analysis.py`
+```bash
+python ProposedDroughtSpecNetV1.py
+```
 
-Train and evaluate Drought-Spec-Net:
+Before running the script, confirm that the spectral dataset path is configured correctly.
 
-`python spectral_model/train_drought_spec_net.py`
+## Running the RGB Mask Analysis
 
-Generate the potential yield-impact results:
+Run the visible canopy stress analysis:
 
-`python yield_impact_mapping/potential_yield_impact.py`
+```bash
+python DSI_Estimation_from-RGM-Mask.py
+```
 
-Calculate the RGB-derived visible canopy stress index:
+Before running the script, confirm that its input path points to the `RGB_Mask_images` folder.
 
-`python rgb_canopy_analysis/calculate_dsi.py`
+## Important Notes
 
-Update the dataset and image paths in the configuration file before running the scripts.
-
-## Important Note
+The spectral and RGB datasets are independent and unpaired. The RGB masks were not used as inputs to Drought-Spec-Net or to validate its spectral predictions.
 
 The potential yield-impact values are exploratory, literature-informed indicators derived from drought-classification probabilities. They are not validated predictions of actual yield loss because the spectral dataset does not contain measured plant-level yield.
 
+The RGB-derived index represents visible canopy condition and should not be interpreted as a direct physiological measurement of drought severity.
