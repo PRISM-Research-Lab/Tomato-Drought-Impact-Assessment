@@ -60,7 +60,7 @@ The index ranges from 0 to 1, where values closer to 0 indicate predominantly he
 
 The public Vis–NIR spectral dataset used to train and evaluate Drought-Spec-Net is not redistributed in this repository. It can be downloaded from:
 
-**Dataset link:** [[Click here for Spectral dataset]](https://github.com/tariyktu/1D-SP-Net/tree/main)
+**Dataset link:** [[Click here for Spectral dataset]](https://github.com/tariyktu/1D-SP-Net/tree/main)    [Last access: 9 September 2026]
 
 After downloading the dataset, update the dataset path in `ProposedDroughtSpecNetV1.py`.
 
